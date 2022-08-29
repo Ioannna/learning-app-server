@@ -22,6 +22,11 @@ app.get("/", (req, res) => {
   });
 
   let lessonsFirstSemester = ["Lessoooon1", "Lesson2", "Lesson2"]
+  const Parts = [
+    ["Lectia 1 Partea 1", "Lectia 1 Partea 2", "Lectia 1 Quiz"],
+    ["Lectia 2 Partea 1", "Lectia 2 Partea 2", "Lectia 2 Quiz"],
+    ["Lectia 3 Partea 1", "Lectia 3 Partea 2", "Lectia 3 Quiz"]
+  ];
   let lessonsSecondSemester = ["2L1", "2L2", "2L3"]
 
   io.on("connection", (socket) => {
@@ -44,6 +49,12 @@ app.get("/", (req, res) => {
 
     socket.on("display-lesson", (name) => {
         socket.emit("display-lesson1", lessonsFirstSemester[0])
-        console.log("received display lesson")
+    })
+
+    socket.on("displayPart", ({ lessonNumber, partNumber }) => {
+        socket.emit("displayPartS", Parts[lessonNumber-1][partNumber-1])
+        console.log(`this is lessonNumber ${lessonNumber}`)
+        console.log(`this is partNumber ${lessonNumber}`)
+        console.log(`this is partNumber ${Parts[lessonNumber-1][partNumber-1]}`)
     })
 })
