@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
     console.log(`Server started on port ${port}`);
   });
 
-  let lessonsFirstSemester = ["Lessoooon1", "Lesson2", "Lesson2"]
+  let lessonsFirstSemester = ["Lesson1", "Lesson2", "Lesson2"]
   const Parts = [
     ["Lectia 1 Partea 1", "Lectia 1 Partea 2", "Lectia 1 Quiz"],
     ["Lectia 2 Partea 1", "Lectia 2 Partea 2", "Lectia 2 Quiz"],
