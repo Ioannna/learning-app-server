@@ -61,6 +61,7 @@ app.get("/", (req, res) => {
 
     socket.on("displayNextLesson", ({ lessonNumber, partNumber }) => {
       socket.emit("displayPartS", Parts[lessonNumber-1][partNumber-1])
+      socket.emit("currentInfo",{ lessonNumber: lessonNumber, partNumber: partNumber } )
       console.log(`this is lessonNumber ${lessonNumber}`)
       console.log(`this is partNumber ${lessonNumber}`)
       console.log(`this is partNumber ${Parts[lessonNumber-1][partNumber-1]}`)
