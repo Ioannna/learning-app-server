@@ -27,15 +27,18 @@ app.get("/", (req, res) => {
     console.log(`Server started on port ${port}`);
   });
 
-  let lessonsFirstSemester = ["Lesson1", "Lesson2", "Lesson2"]
   const Parts = [
     ["Lectia 1 Partea 1", "Lectia 1 Partea 2", "Lectia 1 Quiz"],
     ["Lectia 2 Partea 1", "Lectia 2 Partea 2", "Lectia 2 Quiz"],
     ["Lectia 3 Partea 1", "Lectia 3 Partea 2", "Lectia 3 Quiz"]
   ];
-  let lessonsSecondSemester = ["2L1", "2L2", "2L3"]
 
   io.on("connection", (socket) => {
+
+    Lesson.find().then(result => {
+      socket.emit('send-lessons', result)
+    })
+
       console.log(`[SOCKET CONNECTED] ${socket.id}`)
 
       socket.emit("connected", socket.id)
@@ -44,22 +47,6 @@ app.get("/", (req, res) => {
 
           socket.emit("data", className)
       })
-
-      socket.on("first-semester", (name) => {
-        const lesson = new Lesson({lesson: name})
-        lesson.save().then(() => {
-          socket.emit("lessons-first-semester", lessonsFirstSemester)
-        })
-          
-      })
-
-      socket.on("second-semester", (name) => {
-        socket.emit("lessons-second-semester", lessonsSecondSemester)
-    })
-
-    socket.on("display-lesson", (name) => {
-        socket.emit("display-lesson1", lessonsFirstSemester[0])
-    })
 
     socket.on("displayContent", ({ lessonNumber, partNumber }) => {
       socket.emit("displayPartS", Parts[lessonNumber-1][partNumber-1])
