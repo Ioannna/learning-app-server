@@ -44,15 +44,15 @@ app.get("/", (req, res) => {
       socket.emit("connected", socket.id)
 
       socket.on("enter-class", (className) => {
-
           socket.emit("data", className)
+      })
+
+      socket.on('displayLesson', () => {
+        socket.emit('displayLessonS')
       })
 
     socket.on("displayContent", ({ lessonNumber, partNumber }) => {
       socket.emit("displayPartS", Parts[lessonNumber-1][partNumber-1])
       socket.emit("currentInfo",{ lessonNumber: lessonNumber, partNumber: partNumber } )
-      console.log(`this is lessonNumber ${lessonNumber}`)
-      console.log(`this is partNumber ${lessonNumber}`)
-      console.log(`this is partNumber ${Parts[lessonNumber-1][partNumber-1]}`)
   })
 })
