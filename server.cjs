@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Lesson = require('./models/lessons.cjs')
+const Grade = require('./models/grades.cjs')
 
 const mongoDB = 'mongodb+srv://eLearningUser:eLearning450@cluster0.mttrqxy.mongodb.net/learningContent-database2?retryWrites=true&w=majority'
 
@@ -37,6 +38,10 @@ app.get("/", (req, res) => {
 
     Lesson.find().then(result => {
       socket.emit('send-lessons', result)
+    })
+
+    Grade.find().then(result => {
+      console.log(result)
     })
 
       console.log(`[SOCKET CONNECTED] ${socket.id}`)
