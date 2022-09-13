@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Lesson = require('./models/lessons.cjs')
 
-const mongoDB = 'mongodb+srv://eLearningUser:eLearning450@cluster0.mttrqxy.mongodb.net/learningContent-database?retryWrites=true&w=majority'
+const mongoDB = 'mongodb+srv://eLearningUser:eLearning450@cluster0.mttrqxy.mongodb.net/learningContent-database2?retryWrites=true&w=majority'
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
   console.log('connected')
