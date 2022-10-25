@@ -2,16 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Lesson = require('./models/lessons.cjs')
 const Category = require('./models/categories.cjs')
-//const Semester = require('./models/categories.cjs')
 const Part = require('./models/lessons.cjs')
 const Quiz = require('./models/lessons.cjs')
 
-//const mongoDB = 'mongodb+srv://eLearningUser:eLearning450@cluster0.mttrqxy.mongodb.net/learningContent-database2?retryWrites=true&w=majority'
 mongoose.connect('mongodb://localhost/eLearning-try')
-
-// mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-//   console.log('connected')
-// }).catch(err => console.log(err))
 
 const app = express()
 const http = require('http')
@@ -32,14 +26,14 @@ app.get("/", (req, res) => {
     console.log(`Server started on port ${port}`);
   });
 
-const lessonsArray = []
-
    io.on("connection", (socket) => {
 
-    async function listLessons() {
-      const lessons = await Lesson.find()
+    async function listLessons(categoryName) {
+      const lessons = await Lesson.find({category: categoryName})
           console.log(lessons)
+          console.log(categoryName)
           socket.emit('send-lessons', lessons)
+          socket.emit("data", categoryName)
           
     }
 
@@ -49,15 +43,14 @@ const lessonsArray = []
     }
 
     listCategories()
-    listLessons()
+    //listLessons()
 
       console.log(`[SOCKET CONNECTED] ${socket.id}`)
 
       socket.emit("connected", socket.id)
 
       socket.on("enter-class", (categoryName) => {
-          //listLessons(categoryName)
-          socket.emit("data", categoryName)
+          listLessons(categoryName)
       })
 
       socket.on('displayLesson', () => {
@@ -66,7 +59,6 @@ const lessonsArray = []
 
     socket.on("displayContent", (partContent) => {
       socket.emit("displayPartS", partContent)
-      //socket.emit("currentInfo", partContent )
   })
  })
 
@@ -88,11 +80,11 @@ const lessonsArray = []
 // }
 
 
-// createLesson("Lesson 3 S2", "Clasa a 9-a", "Semester 2", [
-//   new Part({ name: 'Part 1'}),
-//   new Part({ name: 'Part 2'})
+// createLesson("Lectia 3", "Clasa a 10-a", "Semestrul 1", [
+//   new Part({ name: 'Partea 1'}),
+//   new Part({ name: 'Partea 2'})
 // ], 
-//   new Quiz({ name: 'Quiz Lesson 3 Sem 2 Cls 9'})
+//   new Quiz({ name: 'Quiz Lectia 3 Sem 1 Cls 10'})
 
 // )
 
