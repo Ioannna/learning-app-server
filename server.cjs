@@ -1,11 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Lesson = require('./models/lessons.cjs')
+const Lesson = require('./models/lesson.cjs')
 const Category = require('./models/categories.cjs')
-const Part = require('./models/lessons.cjs')
-const Quiz = require('./models/lessons.cjs')
+const thisPart = require('./models/lesson.cjs')
+const thisQuiz = require('./models/lesson.cjs')
+const Item = require('./models/item.cjs')
+const Fruit = require('./models/item.cjs')
 
-mongoose.connect('mongodb://localhost/eLearning-try')
+mongoose.connect('mongodb://localhost/learningApp')
 
 const app = express()
 const http = require('http')
@@ -66,25 +68,26 @@ app.get("/", (req, res) => {
 
 //--------------------createLesson----------------
 
-// async function createLesson(name, category, semester, parts, quiz) {
-//   const lesson = new Lesson({
+// async function createThisLesson(name, category, semester, content, parts, quiz) {
+//   const thislesson = new Lesson({
 //       name,
 //       category,
 //       semester,
+//       content,
 //       parts, 
 //       quiz
 //   })
 
-//   const result = await lesson.save()
-//   console.log(result)
+//   const res = await thislesson.save()
+//   console.log(res)
 // }
 
 
-// createLesson("Lectia 3", "Clasa a 10-a", "Semestrul 1", [
-//   new Part({ name: 'Partea 1'}),
-//   new Part({ name: 'Partea 2'})
+// createThisLesson("Lectia 3", "Clasa a 9-a", "Semestrul 1", "", [
+//   new thisPart({ name: 'Partea 1', content: '<iframe width="560" height="315" src="https://www.youtube.com/embed/pxIbOwIvKOw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'}),
+//   new thisPart({ name: 'Partea 2', content: 'Partea 2 - Lectia 3'})
 // ], 
-//   new Quiz({ name: 'Quiz Lectia 3 Sem 1 Cls 10'})
+//   new thisQuiz({ name: 'Quiz ', content: 'Quiz Lectia 3'})
 
 // )
 
